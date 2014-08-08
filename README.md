@@ -14,27 +14,26 @@ by 章培昊(Zhang Peihao)
 
 * *斜体字*
 
-    用来标示命令、文件名和URL连接。也会用来标示一个首次使用的专业术语。
-* 代码
+    斜体字用来标示命令、文件名和URL连接。也会用来标示一个首次使用的专业术语。
+* `等宽字`
 
     代码使用等宽字体，并按照响应语法进行着色。例如：
-	```golang
+	```go
 	func LearningDocker(bookname string) {
 		fmt.Printf("I learn docker from %s\n", bookname)
 	}
 	```
-* 
+* **`等宽粗体字`**
 
-{title="Example", lang=golang}
-~~~~~~~~
-func LearningDocker(bookname string) {
-	
-}
-~~~~~~~~
+    等宽粗体字用来标示读者需要在命令行中输入的命令。
+
+* *`等宽斜体字`*
+
+	等宽斜体字用来标示读者需要将文本替换成自己的内容。
 
 ## 目录
 
-[简介](https://github.com/zhangpeihao/LearningDocker/manuscript/00-Introduction.md)
+[简介](/manuscript/00-Introduction.md)
 
 [下载与安装](https://github.com/zhangpeihao/LearningDocker/manuscript/01-DownloadAndInstall.md)
 
