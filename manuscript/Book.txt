@@ -1,3 +1,2 @@
-Temp.md
 00-Introduction.md
 References.md
