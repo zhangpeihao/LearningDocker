@@ -20,7 +20,7 @@ by 章培昊(Zhang Peihao)
     代码使用等宽字体，并按照响应语法进行着色。例如：
 	```go
 	func LearningDocker(bookname string) {
-		fmt.Printf("I learn docker from %s\n", bookname)
+		fmt.Printf("%s is the best book to learn Docker!\n", bookname)
 	}
 	```
 * **`等宽粗体字`**
