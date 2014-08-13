@@ -35,19 +35,17 @@ by 章培昊(Zhang Peihao)
 
 [简介](/manuscript/00-Introduction.md)
 
-[下载与安装](https://github.com/zhangpeihao/LearningDocker/manuscript/01-DownloadAndInstall.md)
+[下载与安装](/manuscript/01-DownloadAndInstall.md)
 
-[创建第一个容器](https://github.com/zhangpeihao/LearningDocker/manuscript/02-FirstContainer.md)
+TODO: 创建第一个容器
 
-[Docker是什么](https://github.com/zhangpeihao/LearningDocker/manuscript/03-UnderstandingDocker.md)
+TODO: Docker Hub
 
-[Docker Hub](https://github.com/zhangpeihao/LearningDocker/manuscript/04-DockerNub.md)
-
-[使用Docker创建你的Web应用](https://github.com/zhangpeihao/LearningDocker/manuscript/05-DockerForWebApp.md)
+TODO: 使用Docker创建你的Web应用
 
 ## 讨论群
 
-大家可以加入QQ群（）讨论Docker相关话题
+大家可以加入QQ群（94585507）讨论Docker相关话题
 
 ## 版权申明
 
