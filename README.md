@@ -33,9 +33,13 @@ by 章培昊(Zhang Peihao)
 
 ## 目录
 
-[简介](/manuscript/00-Introduction.md)
++ [简介](/manuscript/00-Introduction.md)
 
-[下载与安装](/manuscript/01-DownloadAndInstall.md)
++ [下载与安装](/manuscript/01-DownloadAndInstall.md)
+
+    - [Windows环境下安装Docker](/manuscript/01-DownloadAndInstall.md#windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85docker)
+
+    - [MacOS环境下安装Docker](/manuscript/01-DownloadAndInstall.md#MacOS%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85docker)
 
 TODO: 创建第一个容器
 
