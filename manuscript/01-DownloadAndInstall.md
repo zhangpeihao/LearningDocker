@@ -29,42 +29,42 @@ Docker项目组只在Windows7.1和Windows8上对boot2docker的windows版进行�
     双击安装包（docker-install.exe），启动安装程序。
 	安装过程由一组向导组成，第一个页面如图：
 	
-	![](images/01_Setup_Windows/1.jpg?raw=true)
+	![](images/01_Setup_Windows/1.jpg)
 	
 	在这里，安装向导建议我们关闭所有其他应用程序。如果没有特殊需要，最好能关闭其他应用，特别注意，如果你已经安装了VirtualBox或者msys-git，并且希望在后面进行升级，必须要关闭原有VirtualBox或msys-git程序。否则在安装过程中将会出现下图的警告：
 	
-	![](images/01_Setup_Windows/Err1.jpg?raw=true)
+	![](images/01_Setup_Windows/Err1.jpg)
 	
 	下一步，选择boot2docker的安装路径，如图：
 	
-	![](images/01_Setup_Windows/2.jpg?raw=true)
+	![](images/01_Setup_Windows/2.jpg)
 	
 	如果没有什么特殊的原因，这里选择使用默认路径。接下来，选择需要安装的组件，如图：
 	
-	![](images/01_Setup_Windows/3.jpg?raw=true)
+	![](images/01_Setup_Windows/3.jpg)
 	
 	我们建议你尽量使用安装包中的VirtualBox和msys-git。这里，我们选择全部安装。接下来，选择boot2docker在开始菜单中的组名称，如图：
 	
-	![](images/01_Setup_Windows/4.jpg?raw=true)
+	![](images/01_Setup_Windows/4.jpg)
 	
 	建议使用默认设置。接下来，设置是否将boot2docker加入到环境变量PATH中，如图：
 	
-	![](images/01_Setup_Windows/5.jpg?raw=true)
+	![](images/01_Setup_Windows/5.jpg)
 	
 	将boot2docker加入到环境变量PATH中，方便通过命令行窗口启动boot2docker。虽然，我们通常使用快捷方式启动boot2docker，但是，如果没有特殊原因，这里还是选择将boot2docker加入到环境变量PATH中。
 	最后，安装向导会将之前的选择总结成列表，如图：
 	
-	![](images/01_Setup_Windows/6.jpg?raw=true)
+	![](images/01_Setup_Windows/6.jpg)
 	
 	点击“install”，开始安装boot2docker。在安装VirtualBox的过程中，Windows系统会提示你安装程序希望安装一些驱动软件，如图：
 	
-	![](images/01_Setup_Windows/7.jpg?raw=true)
+	![](images/01_Setup_Windows/7.jpg)
 	
-	![](images/01_Setup_Windows/8.jpg?raw=true)
+	![](images/01_Setup_Windows/8.jpg)
 	
 	全部点击“安装”按钮。boot2docker安装完成后需要重新启动电脑，如图：
 	
-	![](images/01_Setup_Windows/9.jpg?raw=true)
+	![](images/01_Setup_Windows/9.jpg)
 	
 	选择“Yes”，重启电脑。
 	
@@ -72,11 +72,11 @@ Docker项目组只在Windows7.1和Windows8上对boot2docker的windows版进行�
     
 	安装完成后，你可以在桌面上找到boot2docker的快捷方式图标，如图：
 	
-	![](images/01_Setup_Windows/icon.jpg?raw=true)
+	![](images/01_Setup_Windows/icon.jpg)
 	
 	双击图标，启动boot2docker。首次启动，boot2docker需要创建虚拟机环境，需要一些时间，你可以通过Log信息了解启动的过程。启动完成后，你就可以在命令行界面使用docker了，如图：
 	
-	![](images/01_Setup_Windows/10.jpg?raw=true)
+	![](images/01_Setup_Windows/10.jpg)
 	
 	至此，我们已经成功的在Windows操作系统上安装了Docker运行环境。
 
@@ -99,7 +99,7 @@ TODO:升级安装
 
 我们建议你在安装之前关闭所有其他应用程序。特别是，如果你已经安装了VirtualBox，请务必在安装之前关闭VirtualBox。否则在安装中，会出现错误提示，如图：
 
-![](images/01_Setup_MacOS/Err1.jpg?raw=true)
+![](images/01_Setup_MacOS/Err1.jpg)
 	
 ### 全新安装
 
@@ -113,29 +113,29 @@ TODO:升级安装
     双击安装包（Boot2Docker-X.X.X.pkg），启动安装程序。
 	安装过程由一组向导组成，第一个页面如图：
 	
-	![](images/01_Setup_MacOS/1.jpg?raw=true)
+	![](images/01_Setup_MacOS/1.jpg)
 	
 	点击“继续”按钮，下一个页面提示“选择一个目的宗卷”，如图：
 	
-	![](images/01_Setup_MacOS/2.jpg?raw=true)
+	![](images/01_Setup_MacOS/2.jpg)
 	
 	默认安装在系统的/Applications文件夹内。你可以选择将boot2docker安装到你自己的Home目录下，防止这个系统下其他用户使用。也可以选择安装到一个特定的目录下。如果没有特殊需求，使用默认设置。点击“继续”按钮，安装向导计算出安装所需空间，如图：
 	
-	![](images/01_Setup_MacOS/3.jpg?raw=true)
+	![](images/01_Setup_MacOS/3.jpg)
 	
 	这里你可以点击“自定”按钮，来选择安装组件，或者点击“更改安装位置...”按钮，修改组件的安装位置。这里，我们使用默认设置，点击“安装”按钮，开始安装。安装向导通过进度条显示安装进度，如图：
 	
-	![](images/01_Setup_MacOS/4.jpg?raw=true)
+	![](images/01_Setup_MacOS/4.jpg)
 	
 	安装成功后，安装向导显示“安装成功”页面，如图：
 	
-	![](images/01_Setup_MacOS/5.jpg?raw=true)
+	![](images/01_Setup_MacOS/5.jpg)
 	
 3. 运行
 	
 	安装完成后，在“LaunchPad”可以找到Boot2Docker快捷方式，点击快捷方式，启动boot2docker命令窗口。如图：
 	
-	![](images/01_Setup_MacOS/7.jpg?raw=true)
+	![](images/01_Setup_MacOS/7.jpg)
 
 ### 升级安装
 
