@@ -49,6 +49,10 @@ TODO: Docker Hub
 
 TODO: 使用Docker创建你的Web应用
 
+TODO: 从源代码编译Docker内核
+
+TODO: LXC与libcontainer
+
 ## 讨论群
 
 大家可以加入QQ群（94585507）讨论Docker相关话题

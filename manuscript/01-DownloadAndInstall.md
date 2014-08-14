@@ -141,6 +141,79 @@ TODO:升级安装
 
 TODO:升级安装	
 	
-## CentOS环境下安装Docker
+## CentOS6环境下安装Docker
 	
+### 安装包的组成
+
+Docker的主要设计目标操作系统就是Linux，所以，Docker在Linux上的运行效率、支持程度已经共享资源是最好的。在Linux上可以选择通过编译最新源代码来获得最新的Docker版本，也可以通过资源仓库安装Docker的发布版本。这里我们选择安装EPEL上的Docker发布版本，在后面的章节，我们将为大家介绍如何通过源代码编译最新版本的Docker程序，以及如何定制自己的Docker运行环境。
+
+EPEL资源仓库上的Docker发布版本的版本号为1.0.0。比前面介绍的Windows系统和MacOS系统的安装包中的Docker内核版本要低。两个版本最大的区别是，新版本的Docker使用了自己开发的Linux容器libcontainer来替代LXC。
+
+### 准备
+
+Docker需要Linux内核版本必须是2.6.32-431或更高版本（CentOS6.5 final使用的是这个版本的内核）。如果你的内核版本没有达到这个要求，安装程序会提示错误：`To run Docker, you will need CentOS6 or higher, with a kernel version 2.6.32-431 or higher as this has specific kernel fixes to allow Docker to run.`。
+
+由于从中国大陆地区访问CentOS官方源仓库速度比较慢，建议在安装之前将源仓库改到阿里云的镜像服务器上，同时为CentOS加上EPEL资源仓库：
+```bash
+sudo mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
+sudo wget -O /etc/yum.repos.d/CentOS-Base.repo \
+     http://mirrors.aliyun.com/repo/Centos-6.repo
+sudo wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6 \
+     http://mirrors.aliyun.com/epel/RPM-GPG-KEY-EPEL-6
+sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+sudo wget http://mirrors.aliyun.com/epel/6/x86_64/epel-release-6-8.noarch.rpm
+sudo rpm -ivh epel-release-6-8.noarch.rpm
+sudo mv /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo.bak
+sudo wget -O /etc/yum.repos.d/epel.repo \
+     http://mirrors.aliyun.com/repo/epel-6.repo
+sudo yum repolist
+sudo yum makecache
+```
+
+### 安装
+
+如果上面的准备工作都完成，实际的安装过程非常简单，命令如下：
+```bash
+sudo yum install docker-io
+```
+安装程序将docker程序安装到`/usr/bin`目录下，配置文件安装在`/etc/sysconfig/docker`。安装好docker之后，可以将docker加入到启动服务组中，命令如下：
+```bash
+sudo chkconfig docker on
+```
+
+### 运行
+
+手动启动docker服务器，使用命令：
+```bash
+sudo service docker start
+```
+初次启动需要一些时间，启动好后，你可以使用docker命令管理和运行你的docker镜像和容器了。
+
+## CentOS7环境下安装Docker
 	
+### 安装包的组成
+
+2014年7月7日，CentOS官方发布了首个CentOS7正式版。CentOS7的Linux内核升级到3.10.0，对Linux容器支持得到大大增强。
+
+在CentOS7的Extra仓库中，有Docker的发布版。这个发布版包含了docker的一个比较老的版本(0.11.1)。相信随着Docker稳定版本的逐步退出，CentOS7会升级源仓库中的docker版本。
+
+### 安装
+
+在CentOS7下可以直接从源仓库安装docker，命令如下：
+```bash
+sudo yum install docker
+```
+安装程序将docker程序安装到`/usr/bin`目录下，配置文件安装在`/etc/sysconfig/docker`。安装好docker之后，可以将docker加入到启动服务组中，命令如下：
+```bash
+sudo systemctl enable docker.service
+```
+
+### 运行
+
+手动启动docker服务器，使用命令：
+```bash
+sudo system start docker.service
+```
+初次启动需要一些时间，启动好后，你可以使用docker命令管理和运行你的docker镜像和容器了。
+
+
