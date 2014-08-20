@@ -216,4 +216,11 @@ sudo system start docker.service
 ```
 初次启动需要一些时间，启动好后，你可以使用docker命令管理和运行你的docker镜像和容器了。
 
+## 从源代码安装Docker
+
+### 安装包的组成
+
+Docker的源代码托管在github上，你可以通过git下载最新的源代码。虽然，Docker的编译
+
+因为下载不了go源代码，需要场地、
 
