@@ -18,6 +18,7 @@ sudo docker images
 ```
 
 ![](images/02_CreateFirstContainer/images.jpg)
+
 结果如上图所示。列表包含镜像的名称、Tag、ID、创建时间和大小。
 
 ## 运行容器
@@ -31,8 +32,11 @@ sudo docker images
 sudo docker run -t -i -p 80:80 centos:centos6 /bin/bash
 ```
 如果运行成功，命令行界面的提示符会变为容器内系统的提示符，如图：
+
 ![](images/02_CreateFirstContainer/run.jpg)
+
 现在我们已经在CentOS6的运行环境中了，我们可以通过命令`uname -a`和命令`cat /etc/redhat-release`来查看操作系统版本信息，如图：
+
 ![](images/02_CreateFirstContainer/uname.jpg)
 
 ## 安装Nginx
@@ -55,6 +59,7 @@ yum install -y nginx
 /etc/init.d/nginx start
 ```
 现在我们可以访问宿主主机的80端口来请求网页，结果如图：
+
 ![](images/02_CreateFirstContainer/webpage.jpg)
 
 ## 总结

@@ -39,13 +39,17 @@ by 章培昊(Zhang Peihao)
 
     - [Windows环境下安装Docker](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/01-DownloadAndInstall.md#windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85docker)
 
-    - [MacOS环境下安装Docker](https://github.com/zhangpeihao/LearningDocker/manuscript/blob/master/01-DownloadAndInstall.md#MacOS%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85docker)
+    - [MacOS环境下安装Docker](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/01-DownloadAndInstall.md#macos%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85docker)
 
-    - [CentOS6环境下安装Docker](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/01-DownloadAndInstall.md#CentOS6%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85docker)
+    - [CentOS6环境下安装Docker](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/01-DownloadAndInstall.md#centos6%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85docker)
 
-    - [CentOS7环境下安装Docker](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/01-DownloadAndInstall.md#CentOS7%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85docker)
+    - [CentOS7环境下安装Docker](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/01-DownloadAndInstall.md#centos7%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85docker)
+
+    - [Ubuntu Server14.04环境下安装Docker](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/01-DownloadAndInstall.md#ubuntu-server1404%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85docker)
 
 + [创建第一个容器](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/02-CreateFirstContainer.md)
+
++ [发布镜像](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/03-PublishImage.md)
 
 TODO: Docker Hub
 
