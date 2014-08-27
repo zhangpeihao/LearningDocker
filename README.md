@@ -41,7 +41,9 @@ by 章培昊(Zhang Peihao)
 
     - [MacOS环境下安装Docker](/manuscript/01-DownloadAndInstall.md#MacOS%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85docker)
 
-    - [CentOS环境下安装Docker](/manuscript/01-DownloadAndInstall.md#CentOS%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85docker)
+    - [CentOS6环境下安装Docker](/manuscript/01-DownloadAndInstall.md#CentOS6%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85docker)
+
+    - [CentOS7环境下安装Docker](/manuscript/01-DownloadAndInstall.md#CentOS7%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85docker)
 
 TODO: 创建第一个容器
 
@@ -49,7 +51,7 @@ TODO: Docker Hub
 
 TODO: 使用Docker创建你的Web应用
 
-TODO: 从源代码编译Docker内核
+TODO: 从源代码编译Docker
 
 TODO: LXC与libcontainer
 

@@ -80,11 +80,6 @@ Docker项目组只在Windows7.1和Windows8上对boot2docker的windows版进行�
 	
 	至此，我们已经成功的在Windows操作系统上安装了Docker运行环境。
 
-### 升级安装
-
-TODO:升级安装
-
-
 ## MacOS环境下安装Docker
 
 ### 安装包的组成
@@ -136,10 +131,6 @@ TODO:升级安装
 	安装完成后，在“LaunchPad”可以找到Boot2Docker快捷方式，点击快捷方式，启动boot2docker命令窗口。如图：
 	
 	![](images/01_Setup_MacOS/7.jpg)
-
-### 升级安装
-
-TODO:升级安装	
 	
 ## CentOS6环境下安装Docker
 	
@@ -189,6 +180,18 @@ sudo service docker start
 ```
 初次启动需要一些时间，启动好后，你可以使用docker命令管理和运行你的docker镜像和容器了。
 
+### 升级
+
+在Docker官网上提供各个版本的Docker程序的下载，最新版本下载地址是：[https://get.docker.io/builds/Linux/x86_64/docker-latest](https://get.docker.io/builds/Linux/x86_64/docker-latest)。升级脚本如下：
+```bash
+sudo service docker stop
+sudo mv /usr/bin/docker /usr/bin/docker.bak
+sudo wget -o /usr/bin/docker https://get.docker.io/builds/Linux/x86_64/docker-latest
+sudo chmod +x /usr/bin/docker
+sudo service docker start
+sudo docker version
+```
+
 ## CentOS7环境下安装Docker
 	
 ### 安装包的组成
@@ -216,11 +219,33 @@ sudo system start docker.service
 ```
 初次启动需要一些时间，启动好后，你可以使用docker命令管理和运行你的docker镜像和容器了。
 
-## 从源代码安装Docker
-
+## Ubuntu Server14.04环境下安装Docker
+	
 ### 安装包的组成
 
-Docker的源代码托管在github上，你可以通过git下载最新的源代码。虽然，Docker的编译
+Ubuntu Server14.04使用的Linux内核版本是3.13.0，满足docker对Linux内核的最低要求。而且Ubuntu软件仓库中包含有Docker，只是版本比较旧（0.9.1）。
 
-因为下载不了go源代码，需要场地、
+### 安装
+
+Ubuntu Server14.04系统上安装docker非常方便，直接使用apt-get安装。命令如下：
+```bash
+sudo apt-get install docker.io
+```
+安装程序将docker程序安装到`/usr/bin`目录下，Log输出到`/var/log`目录下。安装好docker之后，可以将docker加入到启动服务组中，命令如下：
+```bash
+sudo update-rc.d docker.io defaults
+```
+
+由于安装程序安装的是docker.io程序，所有，为了方便起见，我们创建一个docker链接。
+```bash
+sudo ln -sF /usr/bin/docker.io /usr/local/bin/docker
+```
+
+### 运行
+
+安装完docker之后，安装程序会自动启动docker，如果想手动启动docker服务器，使用命令：
+```bash
+sudo service docker.io start
+```
+初次启动需要一些时间，启动好后，你可以使用docker命令管理和运行你的docker镜像和容器了。
 
