@@ -51,7 +51,9 @@ by 章培昊(Zhang Peihao)
 
 + [发布镜像](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/03-PublishImage.md)
 
-TODO: Docker Hub
+TODO: Docker命令详解
+
+TODO: Dockerfile命令详解
 
 TODO: 使用Docker创建你的Web应用
 

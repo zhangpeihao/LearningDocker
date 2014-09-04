@@ -38,9 +38,51 @@ Docker Hub是Docker官方提供的Register和Index服务。如果你身在中国
 
 Docker Hub推荐使用GitHub账号进行注册，因为Docker Hub可以绑定GitHub账号，实现自动编译。虽然，你可以在后面手动绑定GitHub账号，但是，直接使用GitHub账号进行登入更方便。如果你还没有GitHub账号，请先访问[GitHub网站](https://github.com)，注册一个账号。按照提示输入GitHub的用户、密码以及Email地址，点击“Sign Up”按钮，进行注册。
 
-注册成功后，进入个人主页，如下图：
+注册成功后，进入个人首页，如下图：
 
 ![](images/03_DockerHub/main.jpg)
 
-你可以通过左上角的Search功能在公共仓库中查找你需要的镜像。
+你可以通过左上角的Search功能在公共仓库中查找你需要的镜像。这里就不做深入介绍。后面我们还会学习到通过命令来查询镜像。
+
+## 在Docker Hub上创建仓库
+
+接下来，我们尝试在Docker Hub上创建一个仓库。在个人首页的左上角，有创建仓库的下拉菜单（如果你没有翻墙，这个下拉菜单可能打不开），打开菜单，如下图：
+
+![](images/03_DockerHub/AddRepository.jpg)
+
+菜单有两个选项，上面的"Repository"是用于创建仓库，下面的"Automated Build"用于创建自动编译项目。这里我们选择"Repository"，打开设置新仓库熟悉页面，如下图：
+
+![](images/03_DockerHub/AddRepositoryDetail.jpg)
+
+最上面是设置命名空间和仓库名，Docker Hub上命名空间使用用户名，仓库名只能是小写字母、数字、减号或下划线，这里我们输入："busybox"；下面是仓库的简介，输入："Sample repository"；最下面选择仓库的公开和私有熟悉。目前，Docker Hub为每一个账号提供了一个免费的私有仓库，这里，我们选择"Public"。点击"Add Repository"按钮，创建仓库，进入新仓库的首页，如下图：
+
+![](images/03_DockerHub/busybox.jpg)
+
+## 在命令行环境创建镜像
+
+### 登入Docker Hub
+
+现在，打开命令行环境，输入`sudo docker login -u`*`<用户名>`*` -p `*`<密码>`*` -e `*`<Email>`*
+命令。如下图：
+
+![](images/03_CreateImage/docker_login.jpg)
+
+你也可以不带参数，Docker命令行客户端会提示你输入用户名、密码和Email。
+你输入的登入信息会被发送到Docker Hub的索引服务进行身份认证。如果认证成功，你的认证信息会被保存在本地Home目录的.dockercfg文件里。
+
+### 查询镜像
+
+前面我们提到可以在Docker Hub网站查询镜像，在命令行环境同样可以进行查询。在命令行环境输入`sudo docker search busybox`命令。如下图：
+
+![](images/03_CreateImage/docker_search.jpg)
+
+查询命令发送到Docker Hub上索引服务。在前面我们已经提到，Docker使用索引服务处理索引仓库的查询请求。这里我们看到了很多与busybox有关的仓库，并且按照星数（点赞数）进行排序。
+
+### 下载镜像
+
+在前一章，我们已经尝试使用`docker pull`命令下载CentOS镜像。这里，我们下载busybox镜像，命令如下：
+
+![](images/03_CreateImage/docker_pull.jpg)
+
+我们下载的是官方命名空间下busybox镜像的最新Tag。下载过程中，我们可以看到，Docker命令行客户端并行的下载了很多个层(layer)。这些层是busybox镜像是通过将这些层串联起来得到的。
 
