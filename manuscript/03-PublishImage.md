@@ -98,7 +98,7 @@ sudo docker pull zhangpeihao/busybox:base
 * 第二步：Docker Hub的索引服务通过查找数据库，找到该仓库的所有镜像的ID和CheckSum返回给Docker客户端。
     我们可以通过下面命令直接调用Docker Hub的REST API接口：
 	
-	`curl -v -L -u `*`<用户名>`*`:`*`<密码>`*` -H "X-Docker-Token: true" -H "Accept: application/json" https://index.docker.io/v1/repositories/zhangpeihao/busybox/images`
+	`curl -v -L -u `*`<用户名>:<密码>`*` -H "X-Docker-Token: true" -H "Accept: application/json" https://index.docker.io/v1/repositories/zhangpeihao/busybox/images`
 	
 	我们在返回中可以找到`X-Docker-Endpoints`头字段，表示Registry服务所的Host；`X-Docker-Token`头字段，表示访问registry需要的认证信息和授权；返回的内容是所查询镜像的所有依赖的层镜像的ID和CheckSum。
 * 第三步：接下来，Docker客户端使用得到的认证信息和Registry Host地址，向Registry发送下载镜像请求。
