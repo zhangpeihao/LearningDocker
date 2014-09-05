@@ -80,9 +80,34 @@ Docker Hub推荐使用GitHub账号进行注册，因为Docker Hub可以绑定Git
 
 ### 下载镜像
 
-在前一章，我们已经尝试使用`docker pull`命令下载CentOS镜像。这里，我们下载busybox镜像，命令如下：
+在前一章，我们已经尝试使用`docker pull`命令下载CentOS镜像。这里，我们要下载的是zhangpeihao/busybox镜像的base标签，命令如下：
 
-![](images/03_CreateImage/docker_pull.jpg)
+```base
+sudo docker pull zhangpeihao/busybox:base
+```
 
-我们下载的是官方命名空间下busybox镜像的最新Tag。下载过程中，我们可以看到，Docker命令行客户端并行的下载了很多个层(layer)。这些层是busybox镜像是通过将这些层串联起来得到的。
+下载过程中，我们可以看到，Docker命令行客户端并行的下载了很多个层(layer)。busybox镜像是通过将这些层串联起来得到的。
+
+从Docker Hub下载镜像需要经过认证、查询和下载等多个步骤。下面，我们通过示图来深入了解这些步骤。
+
+![](images/03_CreateImage/docker_pull_diagram.png)
+
+* 第一步：Docker客户端向Docker Hub的索引服务发送镜像查询请求。
+    GET /vi/repositories/zhangpeihao/busybox/images
+	
+* 第二步：Docker Hub的索引服务通过查找数据库，找到该仓库的所有镜像的ID和CheckSum返回给Docker客户端。
+    我们可以通过下面命令直接调用Docker Hub的REST API接口：
+	
+	`curl -v -L -u '*'<用户名>'*:*'<密码>'*' -H "X-Docker-Token: true" -H "Accept: application/json" https://index.docker.io/v1/repositories/zhangpeihao/busybox/images`
+	
+	我们在返回中可以找到`X-Docker-Endpoints`头字段，表示Registry服务所的Host；`X-Docker-Token`头字段，表示访问registry需要的认证信息和授权；返回的内容是所查询镜像的所有依赖的层镜像的ID和CheckSum。
+* 第三步：接下来，Docker客户端使用得到的认证信息和Registry Host地址，向Registry发送下载镜像请求。
+
+* 第四步：Registry向Docker Hub的索引服务发送验证请求，验证Docker客户端提供的认证信息是否被授权访问指定的镜像。
+
+* 第五步：Docker Hub的索引服务返回验证结果。
+
+* 第六步：如果Docker Hub的索引服务返回验证通过，Registry则开始响应Docker客户端的镜像下载请求。
+
+
 
