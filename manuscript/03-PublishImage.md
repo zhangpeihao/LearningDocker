@@ -101,6 +101,7 @@ sudo docker pull zhangpeihao/busybox:base
 	`curl -v -L -u `*`<用户名>:<密码>`*` -H "X-Docker-Token: true" -H "Accept: application/json" https://index.docker.io/v1/repositories/zhangpeihao/busybox/images`
 	
 	我们在返回中可以找到`X-Docker-Endpoints`头字段，表示Registry服务所的Host；`X-Docker-Token`头字段，表示访问registry需要的认证信息和授权；返回的内容是所查询镜像的所有依赖的层镜像的ID和CheckSum。
+	
 * 第三步：接下来，Docker客户端使用得到的认证信息和Registry Host地址，向Registry发送下载镜像请求。
 
 * 第四步：Registry向Docker Hub的索引服务发送验证请求，验证Docker客户端提供的认证信息是否被授权访问指定的镜像。
@@ -109,5 +110,96 @@ sudo docker pull zhangpeihao/busybox:base
 
 * 第六步：如果Docker Hub的索引服务返回验证通过，Registry则开始响应Docker客户端的镜像下载请求。
 
+### 使用镜像
 
+接下来，我们可以使用下载的busybox镜像来运行容器。输入命令：
 
+```bash
+sudo docker run zhangpeihao/busybox:base /bin/echo Hello Docker
+```
+
+你可以看到容器运行并输出了"Hello Docker"。而你运行的容器实例，也可以通过下面命令看到：
+
+```bash
+sudo docker ps -la
+```
+
+从运行列表，我们可以看到，这个容器输出了一串文章后就退出了。接下来，我们将在容器中运行一个在后台执行的ping进程，并通过`docker logs`命令捕捉容器的输出。输入命令：
+
+```bash
+ping_job=$(sudo docker run -d zhangpeihao/bosybox:base /bin/ping 127.0.0.1)
+```
+
+这里，-d运行选项指明希望在后台运行容器。如果你希望ping其他服务器，你可以将命令中的127.0.0.1地址改成你希望ping的服务器地址。命令执行后，界面没有任何输入，到底有没有运行成功呢？我们可以通过上面介绍的`docker ps`命令查看一下。现在，列表中显示容器的状态(STATUS)是：Up...。表示我们的容器正在运行。下面，我们先看看ping_job是一个什么值，输入命令：
+
+```bash
+echo $ping_job
+```
+
+返回的是一串字符，这就是我们运行的容器ID。它的前12位与`docker ps`命令查看到的容器ID一致。接下来，输入命令：
+
+```bash
+sudo docker logs -f -t $ping_job
+```
+
+你也可以直接输入容器ID的前3位，例如：
+
+```bash
+sudo docker logs -f -t 3a2
+```
+
+这里，-f运行选项指明希望持续监视容器的输出，-t运行选项指明希望输入Log的时间。现在，我们可以看到ping程序的执行结果，就像直接运行ping命令一样。你可以通过Ctrl+C输入退出`docker logs`命令，而完全不影响ping进程的执行。
+
+接下来，大家输入`docker pause`命令来暂停容器的运行：
+
+```bash
+sudo docker pause $ping_job
+```
+
+再次使用`docker ps`命令来查看容器运行状态时，这个容器的状态(STATUS)仍然是：Up，但是后面括号表明Paused。这时如果再使用`docker logs`命令查看进程输出，可以看到输出停止了，并没有ping命令的停止时的总结统计信息。可以看出，此时ping进程只是被挂起了，并没有收到退出信号。接下来，我们运行命令：
+
+```bash
+sudo docker unpasue $ping_job
+```
+
+再使用`docker logs`命令查看ping命令输出，可以看到，ping命令并没有重启，seq数值在`docker unpause`命令之后继续之前数值，而没有归零。这里我们可以看到使用Docker容器可以方便的将一个容器内的进程挂起，然后再继续执行。下面，我们输入命令：
+
+```bash
+sudo docker stop $ping_job
+```
+
+从`docker logs`命令看到，输出停止，但没有输出ping命令退出时的统计结果。通过`docker ps`命令，可以看到，容器状态已经是：Exited。为什么没有统计结果呢，这是由于ping命令的统计结果是在收到INT信号时输出的，而`docker stop`命令发出的是TERM和KILL信号量。下面，我们可以试试看使用`docker kill`命令向ping进程发送INT信号量。这此之前，我们需要先把容器重新运行起来，输入命令：
+
+```bash
+sudo docker start $ping_job
+```
+
+从`docker logs`命令看到，ping命令重新运行了，seq也归零后重新计数。现在我们通过`docker kill`命令来停止容器，命令如下：
+
+```bash
+sudo docker kill -s "INT" $ping_job
+```
+
+从`docker logs`命令看到，ping命令输出了统计结果，如同本地运行ping命令一样。通过-s命令选项，我们还可以像经常发送指定的信号，甚至是用户自定义的信号。
+
+### 提交与上传镜像
+
+现在，我们有一个容器用来ping某个地址。现在，我们希望把我们的工作保存到软件仓库，并提供给测试后运维来使用。首先，我们将容器保存到镜像中。输入命令：
+
+```bash
+sudo docker commit $ping_job <用户名>/busybox:ping_job
+```
+
+命令返回一串文本，这就是你新提交的镜像ID。通过`docker images`命令，你可以看到创建了一个新的image。但是，此时，这个image还只存在与本地，而且完全没有进行权限验证。也就是说，你完全可以在本地创建一个名叫"zhangpeihao/busybox:ping_job"的镜像。接下来，我们输入命令：
+
+```bash
+sudo docker push <用户名>/busybox:ping_job
+```
+
+上传成功后，会输出：`Image successfully pushed`。通过hub.docker.com网页，我们可以看到，busybox仓库中，增加了ping_job标签。
+
+Docker的上传过程与之前介绍的下载过程是类似的。前两步，Docker客户端向Docker Hub的索引服务发送镜像查询请求；第三步，Docker客户端按照Docker Hub的索引服务返回的Registry服务地址，验证信息向Registry发送上传请求；第四步和第五步，Registry服务向Docker Hub请求验证Docker客户端提供的验证信息，如果验证通过，最后一步，Registry允许Docker客户端上传镜像。而上传的过程和现在的过程一样，将镜像分解成所包含层进行上传。
+
+## 总结
+
+在本章中，我们学习了怎样创建在Docker Hub上自己的账号和仓库。还学习了在本地通过Docker命令来创建一个新镜像的方法。这本章，我们学习了一些Docker命令的基本使用方法。大家可以从Docker官网提供的[命令手册](http://docs.docker.com/reference/commandline/cli/)来查看详细说明。在后面的章节，我们还会学习到更多Docker命令以及更多的使用案例。
