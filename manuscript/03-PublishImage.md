@@ -14,12 +14,12 @@ Docker的镜像管理需要满足以下需求：
 * Docker为了满足各种应用场景的需要提供不同类型的服务
  + 提供了Docker Hub作为官方的镜像管理平台，免费为普通用户提供开源的镜像管理服务，同时提供收费的私有镜像管理服务；
  + Docker也在github上将docker registry项目开源，让用户可以部署完全私有的镜像管理系统；
- + 另外，docker registry将认证与镜像管理分开，使用用户可以使用开发的镜像管理平台同时使用自己的索引服务（关于索引服务，在后面会进行介绍）；
+ + 另外，docker registry将认证与镜像管理分开，用户可以设计自己的索引服务（关于索引服务，在后面会进行介绍）；
 * Docker为了适应各种部署需要，提供了S3, 云文件, 本地文件存储等各种存储后台
 
 为了满足以上需求，Docker为镜像管理设计了以下几个概念：
 * Index - 索引，Docker在索引服务中实现用户的授权与认证、镜像的CheckSum管理、以及公共命名空间的管理；
-* Registry - 注册表（很难找到合适的词语来对应Registry，这里参考了一些其他Docker的中文翻译使用“注册表”，但是，Registry与Windows系统中的注册表概念完全不同。为了不误导读者，在本书中，我们将直接使用英文Registry），Docker通过Registry，将镜像和仓库的关系和版本管理与数据存储和授权认证分隔开，从而能够实现上面所提到的官方、镜像、私有和自认证等各种不同类型的服务。
+* Registry - 注册表（很难找到合适的词语来对应Registry，这里参考了一些其他Docker的中文翻译使用“注册表”，但是，Registry与Windows系统中的注册表概念完全不同。为了不误导读者，在本书中，我们将直接使用英文Registry），Docker通过Registry，将版本管理、依赖管理、数据存储和授权认证分隔开，从而能够实现上面所提到的官方、镜像、私有和自认证等各种不同类型的服务。
 * Repostory - 仓库，Docker中的仓库与Github上的仓库概念相同。我们在Registry上创建仓库，并在仓库中保存、记录和管理镜像与标签。
 * Image - 镜像，Docker的镜像是仓库在运行环境下的一个实例。当然，也可以创建一个镜像不对应任何仓库，比如，你同样可以在本地为自己的image命名为zhangpeihao/learningdocker，但是你无法提交到Registry，因为Registry需要提交者拥有仓库zhangpeihao/learningdocker的权限。
 * Tag - 标签，Docker提供标签来实现在一个仓库的不同版本。
@@ -46,15 +46,15 @@ Docker Hub推荐使用GitHub账号进行注册，因为Docker Hub可以绑定Git
 
 ## 在Docker Hub上创建仓库
 
-接下来，我们尝试在Docker Hub上创建一个仓库。在个人首页的左上角，有创建仓库的下拉菜单（如果你没有翻墙，这个下拉菜单可能打不开），打开菜单，如下图：
+接下来，我们尝试在Docker Hub上创建一个仓库。在个人首页的右上角，有创建仓库的下拉菜单（如果你没有翻墙，这个下拉菜单可能打不开），打开菜单，如下图：
 
 ![](images/03_DockerHub/AddRepository.jpg)
 
-菜单有两个选项，上面的"Repository"是用于创建仓库，下面的"Automated Build"用于创建自动编译项目。这里我们选择"Repository"，打开设置新仓库熟悉页面，如下图：
+菜单有两个选项，上面的"Repository"是用于创建仓库，下面的"Automated Build"用于创建自动编译项目（需要绑定GitHub）。这里我们选择"Repository"，打开设置新仓库属性的页面，如下图：
 
 ![](images/03_DockerHub/AddRepositoryDetail.jpg)
 
-最上面是设置命名空间和仓库名，Docker Hub上命名空间使用用户名，仓库名只能是小写字母、数字、减号或下划线，这里我们输入："busybox"；下面是仓库的简介，输入："Sample repository"；最下面选择仓库的公开和私有熟悉。目前，Docker Hub为每一个账号提供了一个免费的私有仓库，这里，我们选择"Public"。点击"Add Repository"按钮，创建仓库，进入新仓库的首页，如下图：
+最上面是设置命名空间和仓库名，Docker Hub上命名空间使用用户名，仓库名只能是小写字母、数字、减号或下划线，这里我们输入："busybox"；下面是仓库的简介，输入："Sample repository"；最下面选择仓库的公开和私有属性。目前，Docker Hub为每一个账号提供了一个免费的私有仓库，这里，我们选择"Public"。点击"Add Repository"按钮，创建仓库，进入新仓库的首页，如下图：
 
 ![](images/03_DockerHub/busybox.jpg)
 
@@ -100,7 +100,7 @@ sudo docker pull zhangpeihao/busybox:base
 	
 	`curl -v -L -u `*`<用户名>:<密码>`*` -H "X-Docker-Token: true" -H "Accept: application/json" https://index.docker.io/v1/repositories/zhangpeihao/busybox/images`
 	
-	我们在返回中可以找到`X-Docker-Endpoints`头字段，表示Registry服务所的Host；`X-Docker-Token`头字段，表示访问registry需要的认证信息和授权；返回的内容是所查询镜像的所有依赖的层镜像的ID和CheckSum。
+	我们在返回中可以找到`X-Docker-Endpoints`头字段，表示Registry服务所在的Host地址；`X-Docker-Token`头字段，表示访问registry需要的认证信息和授权；返回的内容是所查询镜像的所有依赖的层镜像的ID和CheckSum。
 	
 * 第三步：接下来，Docker客户端使用得到的认证信息和Registry Host地址，向Registry发送下载镜像请求。
 
@@ -124,13 +124,13 @@ sudo docker run zhangpeihao/busybox:base /bin/echo Hello Docker
 sudo docker ps -la
 ```
 
-从运行列表，我们可以看到，这个容器输出了一串文章后就退出了。接下来，我们将在容器中运行一个在后台执行的ping进程，并通过`docker logs`命令捕捉容器的输出。输入命令：
+从运行列表，我们可以看到，这个容器处于Exited状态。接下来，我们将在容器中运行一个在后台执行的ping进程，这个进程在`docker run`命令返回后仍然在后台运行。我们可以通过`docker logs`命令捕捉ping进程的输出。首先，输入命令：
 
 ```bash
 ping_job=$(sudo docker run -d zhangpeihao/bosybox:base /bin/ping 127.0.0.1)
 ```
 
-这里，-d运行选项指明希望在后台运行容器。如果你希望ping其他服务器，你可以将命令中的127.0.0.1地址改成你希望ping的服务器地址。命令执行后，界面没有任何输入，到底有没有运行成功呢？我们可以通过上面介绍的`docker ps`命令查看一下。现在，列表中显示容器的状态(STATUS)是：Up...。表示我们的容器正在运行。下面，我们先看看ping_job是一个什么值，输入命令：
+这里，-d运行选项指明希望在后台运行容器。如果你希望ping其他服务器，你可以将命令中的127.0.0.1地址改成你希望ping的服务器地址。命令执行后，界面没有任何输入，到底有没有运行成功呢？我们可以通过上面介绍的`docker ps`命令查看一下。现在，列表中显示容器的状态(STATUS)是：Up...。表示我们的容器正在运行。接下来，我们看看ping_job是一个什么值，输入命令：
 
 ```bash
 echo $ping_job
@@ -148,9 +148,9 @@ sudo docker logs -f -t $ping_job
 sudo docker logs -f -t 3a2
 ```
 
-这里，-f运行选项指明希望持续监视容器的输出，-t运行选项指明希望输入Log的时间。现在，我们可以看到ping程序的执行结果，就像直接运行ping命令一样。你可以通过Ctrl+C输入退出`docker logs`命令，而完全不影响ping进程的执行。
+这里，-f运行选项指明希望持续监视容器的输出，-t运行选项指明希望输出每条Log的时间。现在，我们可以看到ping程序的执行结果，就像直接运行ping命令一样。你可以通过Ctrl+C输入退出`docker logs`命令，而完全不影响ping进程的执行。
 
-接下来，大家输入`docker pause`命令来暂停容器的运行：
+接下来，输入`docker pause`命令来暂停容器的运行：
 
 ```bash
 sudo docker pause $ping_job
@@ -168,7 +168,7 @@ sudo docker unpasue $ping_job
 sudo docker stop $ping_job
 ```
 
-从`docker logs`命令看到，输出停止，但没有输出ping命令退出时的统计结果。通过`docker ps`命令，可以看到，容器状态已经是：Exited。为什么没有统计结果呢，这是由于ping命令的统计结果是在收到INT信号时输出的，而`docker stop`命令发出的是TERM和KILL信号量。下面，我们可以试试看使用`docker kill`命令向ping进程发送INT信号量。这此之前，我们需要先把容器重新运行起来，输入命令：
+从`docker logs`命令看到，输出停止，但同样没有输出ping命令退出时的统计结果。通过`docker ps`命令，可以看到，容器状态已经是：Exited。为什么没有统计结果呢，这是由于ping命令的统计结果是在收到INT信号时输出的，而`docker stop`命令发出的是TERM和KILL信号。下面，我们可以试试看使用`docker kill`命令向ping进程发送INT信号。这此之前，我们需要先把容器重新运行起来，输入命令：
 
 ```bash
 sudo docker start $ping_job
@@ -180,26 +180,26 @@ sudo docker start $ping_job
 sudo docker kill -s "INT" $ping_job
 ```
 
-从`docker logs`命令看到，ping命令输出了统计结果，如同本地运行ping命令一样。通过-s命令选项，我们还可以像经常发送指定的信号，甚至是用户自定义的信号。
+从`docker logs`命令看到，ping命令输出了统计结果，如同本地运行ping命令一样。通过-s命令选项，我们还可以向进程发送指定的信号，甚至是用户自定义的信号。
 
 ### 提交与上传镜像
 
-现在，我们有一个容器用来ping某个地址。现在，我们希望把我们的工作保存到软件仓库，并提供给测试后运维来使用。首先，我们将容器保存到镜像中。输入命令：
+现在，我们已经创建了一个容器用来ping某个地址。接下来，我们希望把我们的工作保存到软件仓库，并提供给测试或运维来使用。首先，我们将容器保存到镜像中。输入命令：
 
 ```bash
 sudo docker commit $ping_job <用户名>/busybox:ping_job
 ```
 
-命令返回一串文本，这就是你新提交的镜像ID。通过`docker images`命令，你可以看到创建了一个新的image。但是，此时，这个image还只存在与本地，而且完全没有进行权限验证。也就是说，你完全可以在本地创建一个名叫"zhangpeihao/busybox:ping_job"的镜像。接下来，我们输入命令：
+命令返回一串文本，这就是你新提交的镜像ID。通过`docker images`命令，你可以看到创建了一个新的image。但是，此时，这个image还只存在于本地，而且完全没有进行权限验证。也就是说，你完全可以在本地创建一个名叫"zhangpeihao/busybox:ping_job"的镜像而不上传。接下来，我们输入命令：
 
 ```bash
 sudo docker push <用户名>/busybox:ping_job
 ```
 
-上传成功后，会输出：`Image successfully pushed`。通过hub.docker.com网页，我们可以看到，busybox仓库中，增加了ping_job标签。
+上传成功后，会输出：`Image successfully pushed`。通过hub.docker.com网页，可以看到，busybox仓库中，增加了ping_job标签。
 
-Docker的上传过程与之前介绍的下载过程是类似的。前两步，Docker客户端向Docker Hub的索引服务发送镜像查询请求；第三步，Docker客户端按照Docker Hub的索引服务返回的Registry服务地址，验证信息向Registry发送上传请求；第四步和第五步，Registry服务向Docker Hub请求验证Docker客户端提供的验证信息，如果验证通过，最后一步，Registry允许Docker客户端上传镜像。而上传的过程和现在的过程一样，将镜像分解成所包含层进行上传。
+Docker的上传过程与之前介绍的下载过程是类似的。前两步，Docker客户端向Docker Hub的索引服务发送镜像查询请求；第三步，Docker客户端按照Docker Hub的索引服务返回的Registry服务地址，授权信息向Registry发送上传请求；第四步和第五步，Registry服务向Docker Hub请求验证Docker客户端提供的授权信息，如果验证通过，最后一步，Registry允许Docker客户端上传镜像。而上传的过程和现在的过程一样，将镜像分解成多个层进行上传。
 
 ## 总结
 
-在本章中，我们学习了怎样创建在Docker Hub上自己的账号和仓库。还学习了在本地通过Docker命令来创建一个新镜像的方法。这本章，我们学习了一些Docker命令的基本使用方法。大家可以从Docker官网提供的[命令手册](http://docs.docker.com/reference/commandline/cli/)来查看详细说明。在后面的章节，我们还会学习到更多Docker命令以及更多的使用案例。
+在本章中，我们学习了怎样创建在Docker Hub上自己的账号和仓库。还学习了在本地通过Docker命令来创建一个新镜像的方法。这本章，我们学习了一些Docker命令的基本使用方法。大家可以从Docker官网提供的[命令手册](http://docs.docker.com/reference/commandline/cli/)来查看详细说明。在后面的章节，我们还会学习到更多Docker命令以及更多的使用方法。
