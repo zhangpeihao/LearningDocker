@@ -200,6 +200,20 @@ sudo docker push <用户名>/busybox:ping_job
 
 Docker的上传过程与之前介绍的下载过程是类似的。前两步，Docker客户端向Docker Hub的索引服务发送镜像查询请求；第三步，Docker客户端按照Docker Hub的索引服务返回的Registry服务地址，授权信息向Registry发送上传请求；第四步和第五步，Registry服务向Docker Hub请求验证Docker客户端提供的授权信息，如果验证通过，最后一步，Registry允许Docker客户端上传镜像。而上传的过程和现在的过程一样，将镜像分解成多个层进行上传。
 
+### 使用镜像
+
+其他人如果想要使用这个镜像，输入命令：
+
+```bash
+sudo docker pull <用户名>/busybox:ping_job
+```
+
+将镜像下载到本地，然后直接运行镜像：
+
+```bash
+sudo docker run -d <用户名>/busybox:ping_job
+```
+
 ## 总结
 
 在本章中，我们学习了怎样创建在Docker Hub上自己的账号和仓库。还学习了在本地通过Docker命令来创建一个新镜像的方法。这本章，我们学习了一些Docker命令的基本使用方法。大家可以从Docker官网提供的[命令手册](http://docs.docker.com/reference/commandline/cli/)来查看详细说明。在后面的章节，我们还会学习到更多Docker命令以及更多的使用方法。
