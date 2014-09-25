@@ -14,7 +14,8 @@ by 章培昊(Zhang Peihao)
 
 * *斜体字*
 
-    斜体字用来标示命令、文件名和URL连接。也会用来标示一个首次使用的专业术语。
+	等宽斜体字用来标示读者需要将文本替换成自己的内容。
+
 * `等宽字`
 
     代码使用等宽字体，并按照响应语法进行着色。例如：
@@ -23,13 +24,7 @@ by 章培昊(Zhang Peihao)
 		fmt.Printf("%s is the best book to learn Docker!\n", bookname)
 	}
 	```
-* **`等宽粗体字`**
 
-    等宽粗体字用来标示读者需要在命令行中输入的命令。
-
-* *`等宽斜体字`*
-
-	等宽斜体字用来标示读者需要将文本替换成自己的内容。
 
 ## 目录
 
@@ -50,6 +45,9 @@ by 章培昊(Zhang Peihao)
 + [创建第一个容器](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/02-CreateFirstContainer.md)
 
 + [发布镜像](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/03-PublishImage.md)
+
++ [编写Dockerfile]
+(https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/04-WriteDockerfile.md)
 
 TODO: Docker命令详解
 

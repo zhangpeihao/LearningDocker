@@ -100,7 +100,7 @@ sudo docker pull zhangpeihao/busybox:base
 	
 	`curl -v -L -u `*`<用户名>:<密码>`*` -H "X-Docker-Token: true" -H "Accept: application/json" https://index.docker.io/v1/repositories/zhangpeihao/busybox/images`
 	
-	我们在返回中可以找到`X-Docker-Endpoints`头字段，表示Registry服务所在的Host地址；`X-Docker-Token`头字段，表示访问registry需要的认证信息和授权；返回的内容是所查询镜像的所有依赖的层镜像的ID和CheckSum。
+	我们在返回中可以找到`X-Docker-Endpoints`头字段，表示Registry服务所在的Host地址；`X-Docker-Token`头字段，表示访问registry需要的认证信息和授权；返回的内容是所查询镜像的所有依赖的层镜像的ID和CheckSum。事实上，现在从Docker Hub取得的CheckSum都是空的，这个信息可以通过Registry的images接口直接获得。
 	
 * 第三步：接下来，Docker客户端使用得到的认证信息和Registry Host地址，向Registry发送下载镜像请求。
 
