@@ -231,6 +231,8 @@ Ubuntu Server14.04系统上安装docker非常方便，直接使用apt-get安装�
 ```bash
 sudo apt-get install docker.io
 ```
+    注意： Ubuntu 软件源中有一个旧的适用于KDE3/GNOME2的包也叫做`docker`， 所以安装的时候要把包写成`docker.io`
+
 安装程序将docker程序安装到`/usr/bin`目录下，Log输出到`/var/log`目录下。安装好docker之后，可以将docker加入到启动服务组中，命令如下：
 ```bash
 sudo update-rc.d docker.io defaults
@@ -240,6 +242,25 @@ sudo update-rc.d docker.io defaults
 ```bash
 sudo ln -sF /usr/bin/docker.io /usr/local/bin/docker
 ```
+
+顺便我们可以加入命令行自动补全：
+```bash
+sudo sed -i '$acomplete -F _docker docker' /etc/bash_completion.d/docker
+source /etc/bash_completion.d/docker
+```
+
+    注意：
+    如果想要安装新版本的Docker， 那么可以这样做：
+    ```bash
+    sudo apt-get install -y software-properties-common
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
+    sudo sh -c "echo deb https://get.docker.com/ubuntu docker main\
+      > /etc/apt/sources.list.d/docker.list"
+    sudo apt-get update
+    sudo apt-get install lxc-docker
+    ```
+    这里也有一个curl脚本可以一键完成上面的工作：
+    curl -sSL https://get.docker.com/ubuntu/ | sudo sh
 
 ### 运行
 
