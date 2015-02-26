@@ -215,7 +215,7 @@ sudo systemctl enable docker.service
 
 手动启动docker服务器，使用命令：
 ```bash
-sudo system start docker.service
+sudo systemctl start docker.service
 ```
 初次启动需要一些时间，启动好后，你可以使用docker命令管理和运行你的docker镜像和容器了。
 
