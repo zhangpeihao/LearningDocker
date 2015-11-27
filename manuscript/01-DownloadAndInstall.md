@@ -101,6 +101,7 @@ Docker项目组只在Windows7.1和Windows8上对boot2docker的windows版进行�
 1. 下载
 
     boot2docker的MacOS安装包可以从github上下载，连接地址是：[https://github.com/boot2docker/osx-installer/releases](https://github.com/boot2docker/osx-installer/releases)。下载编译后的安装程序。
+    [国内备份下载](http://pan.baidu.com/s/1kTjgguV)
 	
 	
 2. 安装
